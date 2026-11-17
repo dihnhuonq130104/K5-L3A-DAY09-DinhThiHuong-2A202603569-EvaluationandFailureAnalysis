@@ -52,6 +52,9 @@ def integrity_check(pr: dict, base: dict, spec: dict, base_spec: dict | None = N
             problems.append(f"{title}: incomplete item/seed grid")
         if rep.get("evaluator_failures"):
             problems.append(f"{title}: evaluator failures")
+        for mid, value in rep.get("metrics", {}).items():
+            if isinstance(value, (int, float)) and not math.isfinite(value):
+                problems.append(f"{title}: nonfinite metric {mid}")
         for m in spec["metrics"]:
             mid = m["id"]
             value = rep.get("metrics", {}).get(mid)

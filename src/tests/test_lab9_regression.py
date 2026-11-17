@@ -65,3 +65,14 @@ def test_lab9_pre_deducted_to_zero_has_diagnostic():
     for shape, expected in (("seeded_regression", False), ("fixed", True)):
         case = investigate(shape, "C-013", 11)
         assert ProposalAmountCorrect().evaluate(context(case["trial"], case["label"])).value is expected
+
+
+def test_lab9_integrity_rejects_nonfinite_unlisted_metric():
+    from lab9.gate import integrity_check
+    spec = {"metrics": [{"id": "pass_rate"}]}
+    base = {"manifest": {"items": 1, "seeds": [11]},
+            "rows": [{"item_id": "E-001", "seed": 11, "pass_rate": True}],
+            "metrics": {"pass_rate": 1.0}, "evaluator_failures": []}
+    bad = copy.deepcopy(base)
+    bad["metrics"]["diagnostic"] = float("inf")
+    assert integrity_check(bad, base, spec)
