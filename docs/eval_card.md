@@ -4,7 +4,7 @@ Người thực hiện và gate owner: **Đinh Thị Hường** (`dihnhuonq13010
 
 ## Phiên bản và nguồn dữ liệu
 
-- Code và grader: commit `3f237a70b04061ec3bcc24d66a2f3c6d332c6d30`; code Day 8 gốc: `034c6c421c198dae67a9211d15e2587d5a378972`.
+- Code và grader: commit `3f237a70b04061ec3bcc24d66a2f3c6d332c6d30`, bổ sung integrity tại `537eb0aa0c7f966aac12fb00572977f783be9d43`; code Day 8 gốc: `034c6c421c198dae67a9211d15e2587d5a378972`.
 - Python 3.13.5, pydantic-evals 2.68.0, MockLLM; metric spec v1.1 và v2.1.
 - V1: 14 item × 5 seed (11, 22, 33, 44, 55), SHA `d2c738675170`; nhãn tách riêng trong `labels_v1.json`.
 - Nguồn v1: `lab8_public`, mỗi item có matrix_id, label_by, checked_by và generator; `failure_modes` là coverage dự kiến, không phải nhãn fail của trial.
@@ -118,4 +118,4 @@ python -m lab9.traps --pr reports/eval_slice_regression.json --baseline reports/
 python scripts/collect_lab9_evidence.py
 ```
 
-Kết quả local: M0 PASS; 32 test Day 9 pass; hai eval set sạch; fixed exit 0, regression exit 1; mutation 3/3, không báo nhầm; bốn trap bị chặn. Report được sinh từ script và force-add vì src/reports bị ignore.
+Kết quả local: M0 PASS; 33 test Day 9 pass; hai eval set sạch; fixed exit 0, regression exit 1; mutation 3/3, không báo nhầm; bốn trap bị chặn. Report được sinh từ script và force-add vì src/reports bị ignore.
