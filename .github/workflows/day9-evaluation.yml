@@ -1,4 +1,4 @@
-name: lab9-eval-gate
+name: Day 9 evaluation - dihnhuonq130104
 on: [pull_request, workflow_dispatch]
 permissions: {contents: read}
 concurrency: {group: "eval-gate-${{ github.ref }}", cancel-in-progress: true}
