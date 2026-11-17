@@ -4,19 +4,19 @@ Người thực hiện và gate owner: **Đinh Thị Hường** (`dihnhuonq13010
 
 ## Phiên bản và nguồn dữ liệu
 
-- Code và grader: commit `3f237a70b04061ec3bcc24d66a2f3c6d332c6d30`, bổ sung integrity tại `537eb0aa0c7f966aac12fb00572977f783be9d43`; code Day 8 gốc: `034c6c421c198dae67a9211d15e2587d5a378972`.
+- Code và grader: commit `3f237a70b04061ec3bcc24d66a2f3c6d332c6d30`, bổ sung integrity tại `537eb0aa0c7f966aac12fb00572977f783be9d43`, chuẩn hoá LF tại `ebc8b968cbcbf0090a89680d2c894a8479a0c9ce`; code Day 8 gốc: `034c6c421c198dae67a9211d15e2587d5a378972`.
 - Python 3.13.5, pydantic-evals 2.68.0, MockLLM; metric spec v1.1 và v2.1.
-- V1: 14 item × 5 seed (11, 22, 33, 44, 55), SHA `d2c738675170`; nhãn tách riêng trong `labels_v1.json`.
+- V1: 14 item × 5 seed (11, 22, 33, 44, 55), SHA `7ac827a24a5d`; nhãn tách riêng trong `labels_v1.json`.
 - Nguồn v1: `lab8_public`, mỗi item có matrix_id, label_by, checked_by và generator; `failure_modes` là coverage dự kiến, không phải nhãn fail của trial.
-- V2: 28 item × 5 seed, SHA `a4130b531891`; gồm v1 và 14 adversarial item. Mọi attack mechanism đã map trong fm_map.yaml; build/check cả hai version báo 0 problem(s).
+- V2: 28 item × 5 seed, SHA `90e38fddb1df`; gồm v1 và 14 adversarial item. Mọi attack mechanism đã map trong fm_map.yaml; build/check cả hai version báo 0 problem(s).
 
 ## Kết quả Core
 
 | Report | Run ID |
 |---|---|
-| [baseline_v1.json](../src/reports/baseline_v1.json) | `E-swarm-20261118-d2c7` |
-| [eval_fixed.json](../src/reports/eval_fixed.json) | `E-fixed-20261118-d2c7` |
-| [eval_seeded_regression.json](../src/reports/eval_seeded_regression.json) | `E-seeded_regression-20261118-d2c7` |
+| [baseline_v1.json](../src/reports/baseline_v1.json) | `E-swarm-20261118-7ac8` |
+| [eval_fixed.json](../src/reports/eval_fixed.json) | `E-fixed-20261118-7ac8` |
+| [eval_seeded_regression.json](../src/reports/eval_seeded_regression.json) | `E-seeded_regression-20261118-7ac8` |
 
 | Metric | Baseline swarm | Fixed | Seeded regression | Ngưỡng và vai trò v1 |
 |---|---:|---:|---:|---|
@@ -62,7 +62,7 @@ Case C-002@11: event 3 model_override ghi delay_days=5 sau khi investigator đã
 
 ## Advanced / Expert v2
 
-Baseline: `E-swarm-20261118-a413` — [baseline_v2.json](../src/reports/baseline_v2.json). Pass_rate=0.9786, pass_hat_5=0.8929.
+Baseline: `E-swarm-20261118-90e3` — [baseline_v2.json](../src/reports/baseline_v2.json). Pass_rate=0.9786, pass_hat_5=0.8929.
 
 | Cơ chế | Cấu hình / bằng chứng |
 |---|---|
@@ -118,4 +118,6 @@ python -m lab9.traps --pr reports/eval_slice_regression.json --baseline reports/
 python scripts/collect_lab9_evidence.py
 ```
 
-Kết quả local: M0 PASS; 33 test Day 9 pass; hai eval set sạch; fixed exit 0, regression exit 1; mutation 3/3, không báo nhầm; bốn trap bị chặn. Report được sinh từ script và force-add vì src/reports bị ignore.
+Kết quả local: M0 PASS; 34 test Day 9 pass; hai eval set sạch; fixed exit 0, regression exit 1; mutation 3/3, không báo nhầm; bốn trap bị chặn. Report được sinh từ script và force-add vì src/reports bị ignore.
+
+JSONL dùng LF qua `.gitattributes` và `newline="\n"` trong builder để SHA không thay đổi giữa Windows và Linux. Có test kiểm tra byte CR không xuất hiện trong output builder.

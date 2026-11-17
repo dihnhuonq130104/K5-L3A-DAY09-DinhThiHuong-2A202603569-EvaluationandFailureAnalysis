@@ -4,7 +4,7 @@ Người thực hiện: **Đinh Thị Hường** (`dihnhuonq130104`).
 
 | Trường | Nội dung |
 |---|---|
-| Trial | `seeded_regression C-002@11`; run `E-seeded_regression-20261118-d2c7` ([report](../src/reports/eval_seeded_regression.json)). |
+| Trial | `seeded_regression C-002@11`; run `E-seeded_regression-20261118-7ac8` ([report](../src/reports/eval_seeded_regression.json)). |
 | Triệu chứng | DB ghi đơn O-202 trễ 2 ngày, nên không được hoàn; ticket tự khai 5 ngày. Ledger của variant hoàn 20.000đ, nhãn yêu cầu 0đ. TrialPass, RefundAmountCorrect và DbFactKept fail. |
 | Bước sai đầu tiên | Event **3**, `model_override`, payload `{"delay_days": 5}`. |
 | Vì sao là đầu tiên | Event 1 handoff chỉ giao công cụ đọc; event 2 investigator trả đúng DB `delay_days=2`, visible=true. Đến event 3 agent mới thay dữ kiện đáng tin bằng lời khách. Quote ở event 4 và refund sau đó là hậu quả. |
