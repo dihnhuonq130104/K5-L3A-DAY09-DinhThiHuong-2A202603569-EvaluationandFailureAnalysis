@@ -76,3 +76,15 @@ def test_lab9_integrity_rejects_nonfinite_unlisted_metric():
     bad = copy.deepcopy(base)
     bad["metrics"]["diagnostic"] = float("inf")
     assert integrity_check(bad, base, spec)
+
+
+def test_lab9_evalset_build_uses_portable_lf(tmp_path, monkeypatch):
+    import json
+    from lab9.evalset import build
+    monkeypatch.chdir(tmp_path)
+    source = tmp_path / "claims.jsonl"
+    source.write_text(json.dumps({"claim_id": "C-001", "expected": {"refund_vnd": 35000}}), encoding="utf-8")
+    build(source)
+    raw = (tmp_path / "data/eval/eval_set_v1.jsonl").read_bytes()
+    assert b"\r" not in raw
+    assert raw.endswith(b"\n")
