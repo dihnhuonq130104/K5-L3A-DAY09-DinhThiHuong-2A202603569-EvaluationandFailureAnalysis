@@ -15,6 +15,7 @@ from lab9.judge import calibrate
 from lab9.mutation import detect
 from lab9.trace_case import investigate
 from lab9.variant_agent import make_shape
+from lab9.traps import build as build_traps
 
 
 def main():
@@ -57,6 +58,12 @@ def main():
     if Path("reports/baseline_v2.json").exists():
         v2 = load_spec(Path("config/metric_spec_v2.yaml"))
         base_v2 = json.loads(Path("reports/baseline_v2.json").read_text(encoding="utf-8"))
+        sliced = json.loads(Path("reports/eval_slice_regression.json").read_text(encoding="utf-8"))
+        evidence["traps_v2"] = {}
+        for name, (report, changed_spec) in build_traps(sliced, v2).items():
+            blocked, lines = gate.check(report, base_v2, changed_spec or v2, v2 if changed_spec else None)
+            evidence["traps_v2"][name] = {"exit": int(bool(blocked)), "blocked": blocked, "lines": lines}
+            print(f"trap {name}: exit {int(bool(blocked))} - {', '.join(blocked)}")
         aa = run_eval("swarm", v2, [66, 77, 88, 99, 110])
         Path("reports/eval_swarm_aa_v2.json").write_text(json.dumps(aa, ensure_ascii=False, indent=2), encoding="utf-8")
         evidence["aa_v2"] = {"base_seeds": base_v2["manifest"]["seeds"], "alternate_seeds": aa["manifest"]["seeds"],
